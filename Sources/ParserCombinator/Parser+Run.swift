@@ -14,36 +14,25 @@ public extension Parser {
 
     /**
      Enact a single run of the parser on a subject string.
-     
      Hides the use of input tokens and is preferred to calling parse directly.
-     
      - parameter input: The pre-parsed subject of the parsing operation.
-     
      - returns: A parse result containing the full generic result of the parse.
      */
-
     func run(withInput input: String) -> ParseResult<Output> {
         parse(Substring(input))
     }
 
     /**
-     Enact a single run of the parser on a subject string. 
-     
+     Enact a single run of the parser on a subject string.
      Hides the use of input character tokens and is preferred to calling parse directly.
-     
      - parameter input: The pre-parsed subject of the parsing operation.
-     
      - returns: The successfully parsed object if it is successful.
      Resolves to the optional .none if parsing fails.
      */
-
     func runAndResolve(withInput input: String) -> Output? {
-
-        guard case .success(let result, _) = parse(Substring(input)) else {
+        guard case .success(let success) = parse(Substring(input)) else {
             return nil
         }
-
-        return result
+        return success.result
     }
-
 }

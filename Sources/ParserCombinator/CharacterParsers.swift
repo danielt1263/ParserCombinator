@@ -17,30 +17,23 @@ import Foundation
  The character assessed by the composer will be consumed by it and subtracted from the token stream.
  
  - parameter condition: A closure which takes the character and returns a boolean result of its is parsability.
- 
  - returns: The parser with the same semantic as the closure given.
  */
-
 public func character(condition: @escaping (Character) -> Bool) -> Parser<Character> {
-
-    return Parser { stream in
-
+    Parser { stream in
         guard let character = stream.first else {
-            return .failure(details: .insufficiantTokens)
+            return .failure(.insufficiantTokens)
         }
 
         let tail = stream.dropFirst()
 
         guard condition(character) else {
-
-            let failure: ParseFailure = .unexpectedToken(token: character,
-                                                         tail: tail)
-
-            return .failure(details: failure)
+            let failure: ParseFailure = .unexpectedToken(token: character, tail: tail)
+            return .failure(failure)
         }
 
         // Drop first element so that the parser moves on from the current character.
-        return .success(result: character, tail: tail)
+		return .success(ParseSuccess(result: character, tail: tail))
     }
 }
 
@@ -53,7 +46,6 @@ public func character(condition: @escaping (Character) -> Bool) -> Parser<Charac
  The character assessed by the composer will be consumed by it and subtracted from the token stream.
  
  - parameter isInCharacterSet: A character set to which the character should belong.
- 
  - returns: The parser whith the same semantic as the character set given.
  */
 public func character(isInCharacterSet charSet: CharacterSet) -> Parser<Character> {
@@ -67,7 +59,6 @@ public func character(isInCharacterSet charSet: CharacterSet) -> Parser<Characte
  The character assessed by the composer will be consumed by it and subtracted from the token stream.
  
  - parameter isEqualTo: The character which is indented to pass.
- 
  - returns: The parser which will only allow the given character to pass, all others will fail.
  */
 public func character(isEqualTo token: Character) -> Parser<Character> {
@@ -81,7 +72,6 @@ public func character(isEqualTo token: Character) -> Parser<Character> {
  The character assessed by the composer will be consumed by it and subtracted from the token stream.
  
  - parameter isInString: The string containing the characters which should be accepted.
- 
  - returns: The parser which will only allow the given characters to pass, all others will fail.
  */
 public func character(isInString string: String) -> Parser<Character> {

@@ -7,10 +7,9 @@
 //  Copyright © 2017 Tigerpixel Ltd. All rights reserved.
 //
 
-/// A ParserCombinator Package Description for use with the Swift Package Manager
-
 import PackageDescription
 
+/// A ParserCombinator Package Description for use with the Swift Package Manager
 let package = Package(
     name: "ParserCombinator",
     platforms: [

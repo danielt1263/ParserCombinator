@@ -36,26 +36,24 @@ class ParserPlusRunTests: XCTestCase {
 
         let parseResult = testParseAToTrue.run(withInput: "a")
 
-        guard case .success(let result, let tail) = parseResult else {
+        guard case .success(let result) = parseResult else {
             XCTFail("Expected success case received \(parseResult).")
             return
         }
 
-        XCTAssertEqual(true, result)
-        XCTAssertEqual("", tail)
+        XCTAssertEqual(ParseSuccess(result: true, tail: ""), result)
     }
 
     func testRunParserWithSuccessMismatch() {
 
         let parseResult = testParseAToTrue.run(withInput: "b")
 
-        guard case .success(let result, let tail) = parseResult else {
+        guard case .success(let result) = parseResult else {
             XCTFail("Expected success case received \(parseResult).")
             return
         }
 
-        XCTAssertEqual(false, result)
-        XCTAssertEqual("", tail)
+        XCTAssertEqual(ParseSuccess(result: false, tail: ""), result)
     }
 
     func testRunParserWithNoInputTokens() {

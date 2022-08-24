@@ -16,19 +16,19 @@ class ParseResultTests: XCTestCase {
         XCTAssertEqual(ParseFailure.insufficiantTokens, .insufficiantTokens)
         XCTAssertEqual(ParseFailure.custom(message: "one"), .custom(message: "one"))
         XCTAssertEqual(ParseFailure.unexpectedToken(token: "a", tail: "b"),
-                       .unexpectedToken(token:"a", tail: "b"))
+                       .unexpectedToken(token: "a", tail: "b"))
 
         // Different types.
         XCTAssertNotEqual(ParseFailure.insufficiantTokens, .custom(message: ""))
-        XCTAssertNotEqual(ParseFailure.insufficiantTokens, .unexpectedToken(token:"a", tail: "c"))
+        XCTAssertNotEqual(ParseFailure.insufficiantTokens, .unexpectedToken(token: "a", tail: "c"))
         XCTAssertNotEqual(ParseFailure.unexpectedToken(token: "a", tail: "c"), .custom(message: ""))
 
         // Same unexpected token with different contents.
         XCTAssertNotEqual(ParseFailure.unexpectedToken(token: "a", tail: "b"),
-                          .unexpectedToken(token:"c", tail: "c"))
+                          .unexpectedToken(token: "c", tail: "c"))
 
         XCTAssertNotEqual(ParseFailure.unexpectedToken(token: "a", tail: "b"),
-                          .unexpectedToken(token:"a", tail: "c"))
+                          .unexpectedToken(token: "a", tail: "c"))
 
         // Same custom type with different message.
         XCTAssertNotEqual(ParseFailure.custom(message: "one"), .custom(message: "two"))

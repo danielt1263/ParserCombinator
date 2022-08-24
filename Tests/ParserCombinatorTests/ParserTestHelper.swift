@@ -22,12 +22,12 @@ struct ParserTestHelper {
         return Parser { stream in
 
             guard let character = stream.first else {
-                return .failure(details: .insufficiantTokens)
+                return .failure(.insufficiantTokens)
             }
 
             let result: Bool = (character == "a")
             // Need to drop first element so tht the parser moves on.
-            return .success(result: result, tail: stream.dropFirst())
+            return .success(ParseSuccess(result: result, tail: stream.dropFirst()))
         }
     }
 
@@ -39,15 +39,15 @@ struct ParserTestHelper {
         return Parser { stream in
 
             guard let streamToken = stream.first else {
-                return .failure(details: .insufficiantTokens)
+                return .failure(.insufficiantTokens)
             }
 
             guard character == streamToken else {
                 let tail = stream.dropFirst()
-                return .failure(details: .unexpectedToken(token: streamToken, tail: tail))
+                return .failure(.unexpectedToken(token: streamToken, tail: tail))
             }
             // Need to drop first element so tht the parser moves on.
-            return .success(result: character, tail: stream.dropFirst())
+            return .success(ParseSuccess(result: character, tail: stream.dropFirst()))
         }
     }
 
@@ -59,14 +59,14 @@ struct ParserTestHelper {
         return Parser { stream in
 
             guard let streamToken = stream.first else {
-                return .failure(details: .insufficiantTokens)
+                return .failure(.insufficiantTokens)
             }
 
             guard character == streamToken else {
-                return .success(result: nil, tail: stream)
+                return .success(ParseSuccess(result: nil, tail: stream))
             }
             // Need to drop first element so tht the parser moves on.
-            return .success(result: character, tail: stream.dropFirst())
+            return .success(ParseSuccess(result: character, tail: stream.dropFirst()))
         }
     }
 

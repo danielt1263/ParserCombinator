@@ -99,7 +99,7 @@ class ParserPlusCombinatorTests: XCTestCase {
 
     func testZeroOneOrManyMatchesParser() {
 
-        let parserUnderTest = testParseAToTrue.zeroOneOrMany
+        let parserUnderTest = testParseAToTrue.zeroOrMany
 
         if case .success(let results) = parserUnderTest.run(withInput: "a") {
             XCTAssertEqual([true], results.result)

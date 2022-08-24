@@ -20,7 +20,7 @@ class ParserOperatorTests: XCTestCase {
     func testSequentialApplicationOperator() {
 
         // A parser where the result is a function.
-        let function = Parser { .success(result: twice, tail: $0) }
+        let function = Parser { .success(ParseSuccess(result: twice, tail: $0)) }
         let aChar = ParserTestHelper.characterOrFailureParser(with: "a")
 
         let parserUnderTest = function <*> aChar // Result of "function" parser with "a" applied to it.
@@ -60,7 +60,7 @@ class ParserOperatorTests: XCTestCase {
         }
 
         // A parser where the result is a function.
-        let function = Parser { .success(result: twice, tail: $0) }
+        let function = Parser { .success(ParseSuccess(result: twice, tail: $0)) }
         let aChar: Parser<Character?> = ParserTestHelper.optionalCharacterParser(with: "a")
 
         let parserUnderTest = function <?> aChar // Result of "function" parser with "a" applied to it.

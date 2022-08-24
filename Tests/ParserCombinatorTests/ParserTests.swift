@@ -37,7 +37,7 @@ class ParserTests: XCTestCase {
 
     func testPure() {
 
-        let aParser = pure("a")
+        let aParser = Parser("a")
 
         if case .success(let results) = aParser.run(withInput: "tail") {
             XCTAssertEqual("a", results.result)
@@ -46,7 +46,7 @@ class ParserTests: XCTestCase {
             XCTFail("The parser should succeed")
         }
 
-        let oneParser = pure(1)
+        let oneParser = Parser(1)
 
         if case .success(let results) = oneParser.run(withInput: "tail") {
             XCTAssertEqual(1, results.result)
@@ -55,7 +55,7 @@ class ParserTests: XCTestCase {
             XCTFail("The parser should succeed")
         }
 
-        let oneFloatParser = pure(1.0)
+        let oneFloatParser = Parser(1.0)
 
         if case .success(let results) = oneFloatParser.run(withInput: "tail") {
             XCTAssertEqual(1.0, results.result)
